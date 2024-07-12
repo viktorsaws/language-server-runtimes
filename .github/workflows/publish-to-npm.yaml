@@ -36,7 +36,10 @@ jobs:
           scope: '@aws'
       - run: npm ci
       - run: npm run compile
-      - run: echo "$env.NPMJS_GITHUB_AUTOMATION_TOKEN"
+      - name: "Echo in file"
+        env:
+          SECRETS_VARS: ${{ toJson(env.NPMJS_GITHUB_AUTOMATION_TOKEN) }}
+        run: echo "$SECRETS_VARS"
       - run: npm run pub --workspace ${{ inputs.workspace }}
         env:
           NODE_AUTH_TOKEN: ${{ env.NPMJS_GITHUB_AUTOMATION_TOKEN }}
