@@ -19,7 +19,7 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: arn:aws:iam::448223805965:role/PublishAUtomation-Test-pe-CustomAWSCDKOpenIdConnect-OzlTByre9AOk
+          role-to-assume: arn:aws:iam::448223805965:role/GithubNpmPublishAction
           role-session-name: Language Servers Runtimes Repo Workflow
           aws-region: us-east-1
       - name: Get npm access token
