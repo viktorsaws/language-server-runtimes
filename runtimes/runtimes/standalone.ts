@@ -54,6 +54,9 @@ import {
     updateProfilesRequestType,
     updateSsoTokenManagementRequestType,
 } from '../protocol/identity-management'
+import { glob } from 'glob'
+import { findFiles } from './workspace/findFiles'
+import { getWorkspaceFolder } from './workspace/getWorkspaceFolder'
 
 /**
  * The runtime for standalone LSP-based servers.
@@ -138,21 +141,13 @@ export const standalone = (props: RuntimeProps) => {
         // Set up the workspace sync to use the LSP Text Document Sync capability
         const workspace: Workspace = {
             getTextDocument: async uri => documents.get(uri),
+            getAllTextDocuments: async () => documents.all(),
+            findFiles: async (include, token) => {
+                return await findFiles(include, token)
+            },
             // Get all workspace folders and return the workspace folder that contains the uri
             getWorkspaceFolder: uri => {
-                const fileUrl = new URL(uri)
-                const normalizedFileUri = fileUrl.pathname || ''
-
-                const folders = lspRouter.clientInitializeParams!.workspaceFolders
-                if (!folders) return undefined
-
-                for (const folder of folders) {
-                    const folderUrl = new URL(folder.uri)
-                    const normalizedFolderUri = folderUrl.pathname || ''
-                    if (normalizedFileUri.startsWith(normalizedFolderUri)) {
-                        return folder
-                    }
-                }
+                return getWorkspaceFolder(uri, lspRouter.clientInitializeParams!.workspaceFolders)
             },
             fs: {
                 copy: (src, dest) => {

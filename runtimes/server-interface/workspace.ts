@@ -1,4 +1,4 @@
-import { TextDocument, WorkspaceFolder } from '../protocol'
+import { CancellationToken, TextDocument, URI, WorkspaceFolder } from '../protocol'
 
 // Minimal version of fs.Dirent
 interface Dirent {
@@ -16,6 +16,8 @@ interface Dirent {
  */
 export type Workspace = {
     getTextDocument: (uri: string) => Promise<TextDocument | undefined>
+    getAllTextDocuments: () => Promise<TextDocument[]>
+    findFiles: (include: string, token?: CancellationToken) => Promise<URI[]>
     getWorkspaceFolder: (uri: string) => WorkspaceFolder | null | undefined
     fs: {
         copy: (src: string, dest: string) => Promise<void>

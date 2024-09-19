@@ -34,16 +34,20 @@
     },
     "dependencies": {
         "@aws/language-server-runtimes-types": "^0.0.6",
+        "glob": "^11.0.0",
         "jose": "^5.8.0",
         "rxjs": "^7.8.1",
         "vscode-languageserver": "^9.0.1",
-        "vscode-languageserver-protocol": "^3.17.5"
+        "vscode-languageserver-protocol": "^3.17.5",
+        "vscode-uri": "^3.0.8"
     },
     "devDependencies": {
         "@types/mocha": "^10.0.8",
+        "@types/mock-fs": "^4.13.4",
         "@types/node": "^22.5.0",
         "assert": "^2.0.0",
         "husky": "^9.1.6",
+        "mock-fs": "^5.2.0",
         "prettier": "3.3.3",
         "sinon": "^18.0.0",
         "ts-mocha": "^10.0.0",
