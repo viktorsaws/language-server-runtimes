@@ -62,7 +62,6 @@ describe('findFiles', () => {
     })
 
     it('returns list of files with glob pattern in all known folders', async () => {
-        console.log('PATH::', path.resolve(path.join(__dirname, 'sampleWs')))
         const files = await findFiles('**/*.ts')
 
         assert.deepStrictEqual(files, [
